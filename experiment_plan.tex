@@ -1,0 +1,254 @@
+\documentclass[10pt, conference, letterpaper]{IEEEtran}
+%\usepackage{showframe}
+\usepackage{comment}
+%\usepackage{showframe}
+\setlength{\columnsep}{0.2 in}
+%\usepackage[dvips]{epsfig}
+%\usepackage{epstopdf}
+%\usepackage[latin1]{inputenc}
+%\usepackage[T1]{fontenc}
+
+
+%\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+%    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+%\newtheorem{theorem}{Theorem}
+%\setcounter{page}{1}
+
+%\usepackage{graphicx,epstopdf}
+%\epstopdfsetup{update}
+%\DeclareGraphicsExtensions{.ps}
+%\epstopdfDeclareGraphicsRule{.ps}{pdf}{.pdf}{ps2pdf -dEPSCrop -dNOSAFER #1 \OutputFile}
+
+
+%\usepackage[margin=1.0in]{geometry}
+%\usepackage{flushend}
+%\usepackage{balance}
+%\usepackage[dvips]{graphicx, color}
+
+%\usepackage[dvips]{epsfig}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\newtheorem{theorem}{Theorem}
+%\setcounter{page}{1}
+
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\graphicspath{{./figures/}}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{array}
+\usepackage{multirow}
+
+
+\setlength{\columnsep}{0.2 in}
+\begin{document}
+\title{Experiment Plan}
+\author{Paper ID:xxx}
+\maketitle
+Define the collision rate to be $\gamma=M/m$, where $m$ is the number of packets processed by the switch and $M$ is the number of collisions occurred during the processing of the packets.
+
+The algorithms to be evaluated is NormalHash, HashPipe, OFD and OFD-CI. The configurable parameters are as follows:
+\begin{itemize}
+\item Synthetic traffic or real network trace
+\item The number of buckets in the hash table or the memory size allocated to the algorithms
+\item The number of packets processed by the switch (synthetic traffic)
+\item The number of flows (synthetic traffic)
+\item The skewing factor of the flow size distribution (synthetic traffic)
+\item The number of buckets needing to be checked for HashPipe, OFD and OFD-CI.
+\end{itemize}
+
+Note when evaluate the performance of the algorithms with the real traffic trace, each flow record in NormalHash and HashPipe occupies 17 bytes, while that of OFD occupies 18 bytes. When evaluating the performance with synthetic traffic, we won't consider the size of a single flow record.
+
+The number of buckets needing to be checked when processing a single packet for OFD, OFD-CI and HashPipe is 4 by default.
+
+\section*{Experiment \#001}
+\begin{itemize}
+	\item Set the memory size to be 0.5MB.
+	\item Using ten network traces from CAIDA:
+
+equinix-nyc.dirA.20180315-125910.UTC.anon.pcap,
+equinix-nyc.dirA.20180315-130000.UTC.anon.pcap, 
+equinix-nyc.dirA.20180315-130100.UTC.anon.pcap, 
+equinix-nyc.dirA.20180315-130200.UTC.anon.pcap, 
+equinix-nyc.dirA.20180315-130300.UTC.anon.pcap, 
+equinix-nyc.dirA.20180315-130400.UTC.anon.pcap, 
+equinix-nyc.dirA.20180315-130500.UTC.anon.pcap, 
+equinix-nyc.dirA.20180315-130600.UTC.anon.pcap, 
+equinix-nyc.dirA.20180315-130700.UTC.anon.pcap, 
+equinix-nyc.dirA.20180315-130800.UTC.anon.pcap.
+	\item The number of packets to be replayed for each trace file is 5 million.
+	\item Calculate the collision rate of NormalHash and PriMe.
+\end{itemize}
+
+\section*{Experiment \#002}
+\begin{itemize}
+	\item Set the memory size to be 0.5MB.
+	\item Using ten network traces from HGC: pcap002, pcap003, pcap004, pcap005, pcap006, pcap007, pcap008, pcap009, pcap010, pcap011.
+	\item The number of packets to be replayed for each trace file is 5 million.
+	\item Calculate the collision rate of PriMe and NormalHash.
+\end{itemize}
+
+\section*{Experiment \#003}
+\begin{itemize}
+	\item Using the network trace from CAIDA:
+
+equinix-nyc.dirA.20180315-125910.UTC.anon.pcap.
+	\item The number of packets to be replayed for each trace file is 5 million.
+	\item Increase the memory size from 0.2MB to 2MB, in a step size of 0.2MB.
+	\item Calculate the collision rate of NormalHash and PriMe.
+\end{itemize}
+
+\section*{Experiment \#004}
+\begin{itemize}
+	\item Using the network trace from HGC: pcap002
+	\item The number of packets to be replayed for each trace file is 5 million.
+	\item Increase the memory size from 0.2MB to 2MB, in a step size of 0.2MB.
+	\item Calculate the collision rate of NormalHash and PriMe.
+\end{itemize}
+
+\section*{Experiment \#005}
+\begin{itemize}
+	\item Using the network trace from CAIDA:
+
+equinix-nyc.dirA.20180315-125910.UTC.anon.pcap.
+	\item Set the memory size to be 2MB.
+	\item Increase the buckets to be checked from 2 to 8.
+	\item Calculate the collision rate of OFD, OFD-CI and HashPipe.
+\end{itemize}
+
+\section*{Experiment \#006}
+\begin{itemize}
+	\item Using the network trace from HGC: pcap002
+	\item Set the memory size to be 2MB.
+	\item Increase the buckets to be checked from 2 to 8.
+	\item Calculate the collision rate of OFD, OFD-CI and HashPipe.
+\end{itemize}
+
+\section*{Experiment \#007}
+\begin{itemize}
+	\item Set the number of buckets in the hash table to be 1K.
+	\item Set the number of flows to be 10K.
+	\item Set the number of packets to be 1M.
+	\item Increase the skewing factor from 0.1 to 2.0 by the step of 0.1.
+	\item Calculate the collision rate of the algorithms.
+\end{itemize}
+
+\section*{Experiment \#008}
+\begin{itemize}
+	\item Set the skewing factor to 0.6.
+	\item Set the number of flows to be 100K.
+	\item Set the number of packets to be 10M.
+	\item Increase the number of buckets in the hash table from 2K to 40K with the step of 2K.
+	\item Calculate the collision rate of the algorithms.
+\end{itemize}
+
+
+\section*{Experiment \#009}
+\begin{itemize}
+	\item Set the skewing factor to 0.8.
+	\item Set the number of flows to be 100K.
+	\item Set the number of packets to be 10M.
+	\item Increase the number of buckets in the hash table from 2K to 40K with the step of 2K.
+	\item Calculate the collision rate of the algorithms.
+\end{itemize}
+
+\section*{Experiment \#010}
+\begin{itemize}
+	\item Set the skewing factor to 1.0.
+	\item Set the number of flows to be 100K.
+	\item Set the number of packets to be 10M.
+	\item Increase the number of buckets in the hash table from 2K to 40K with the step of 2K.
+	\item Calculate the collision rate of the algorithms.
+\end{itemize}
+
+\section*{Experiment \#011}
+\begin{itemize}
+	\item Set the skewing factor to 1.2.
+	\item Set the number of flows to be 100K.
+	\item Set the number of packets to be 10M.
+	\item Increase the number of buckets in the hash table from 2K to 40K with the step of 2K.
+	\item Calculate the collision rate of the algorithms.
+\end{itemize}
+
+\section*{Experiment \#012}
+\begin{itemize}
+	\item Set the skewing factor to 1.4.
+	\item Set the number of flows to be 100K.
+	\item Set the number of packets to be 10M.
+	\item Increase the number of buckets in the hash table from 2K to 40K with the step of 2K.
+	\item Calculate the collision rate of the algorithms.
+\end{itemize}
+
+\section*{Experiment \#013}
+\begin{itemize}
+	\item Set the skewing factor to 1.6.
+	\item Set the number of flows to be 100K.
+	\item Set the number of packets to be 10M.
+	\item Increase the number of buckets in the hash table from 2K to 40K with the step of 2K.
+	\item Calculate the collision rate of the algorithms.
+\end{itemize}
+
+\section*{Experiment \#014}
+\begin{itemize}
+	\item Using the network trace from CAIDA:
+	
+	equinix-nyc.dirA.20180315-125910.UTC.anon.pcap.
+	\item The number of packets to be replayed for each trace file is 5 million.
+	\item Increase the memory size from 0.2MB to 2MB, in a step size of 0.2MB.
+	\item Calculate the number of exports, checks and resulting flow records of PriMe.
+\end{itemize}
+
+\section*{Experiment \#015}
+\begin{itemize}
+	\item Using the network trace from HGC: pcap002
+	\item The number of packets to be replayed for each trace file is 5 million.
+	\item Increase the memory size from 0.2MB to 2MB, in a step size of 0.2MB.
+	\item Calculate the number of exports, checks and resulting flow records of PriMe.
+\end{itemize}
+
+
+\section*{Experiment \#016}
+\begin{itemize}
+	\item Set the memory size to be 1.0MB.
+	\item Using ten network traces from CAIDA:
+	
+	equinix-nyc.dirA.20180315-125910.UTC.anon.pcap,
+	equinix-nyc.dirA.20180315-130000.UTC.anon.pcap, 
+	equinix-nyc.dirA.20180315-130100.UTC.anon.pcap, 
+	equinix-nyc.dirA.20180315-130200.UTC.anon.pcap, 
+	equinix-nyc.dirA.20180315-130300.UTC.anon.pcap, 
+	equinix-nyc.dirA.20180315-130400.UTC.anon.pcap, 
+	equinix-nyc.dirA.20180315-130500.UTC.anon.pcap, 
+	equinix-nyc.dirA.20180315-130600.UTC.anon.pcap, 
+	equinix-nyc.dirA.20180315-130700.UTC.anon.pcap, 
+	equinix-nyc.dirA.20180315-130800.UTC.anon.pcap.
+	\item The number of packets to be replayed for each trace file is 5 million.
+	\item Calculate the number of exports, checks and resulting flow records of PriMe as well as the real number of flow records in the trace file.
+\end{itemize}
+
+\section*{Experiment \#017}
+\begin{itemize}
+	\item Set the memory size to be 1.0MB.
+	\item Using ten network traces from HGC: pcap002, pcap003, pcap004, pcap005, pcap006, pcap007, pcap008, pcap009, pcap010, pcap011.
+	\item The number of packets to be replayed for each trace file is 5 million.
+	\item Calculate the number of exports, checks and resulting flow records of PriMe as well as the real number of flow records in the trace file.
+\end{itemize}
+
+\section*{Experiment \#018}
+\begin{itemize}
+	\item Replay the CAIDA trace file equinix-nyc.dirA.20180315-125910.UTC.anon.pcap and HGC trace file pcap002.
+	\item The number of packets to be replayed for each trace file is 5 million.
+	\item Increase the memory size from 0.2MB to 2MB, in a step size of 0.2MB.
+	\item Calculate the number of evictions, number of aggregations and resulting flow records of PriMe.
+\end{itemize}
+
+\end{document}

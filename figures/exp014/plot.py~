@@ -1,0 +1,53 @@
+import matplotlib.pyplot as plt
+import matplotlib
+import matplotlib
+import np
+from matplotlib.patches import Ellipse
+
+font = {'size':22}
+matplotlib.rc('font', **font)
+
+
+def parse_file(filename):
+    memory = []
+    n_exports = []
+    n_aggre = []
+    n_fr = []
+    with open(filename, "r") as f:
+        for line in f:
+            if "#" == line[0]:
+                continue
+            items = line.split("\t")
+            memory.append(float(items[0]))
+            n_exports.append(int(items[1]))
+            n_aggre.append(int(items[2]))
+            n_fr.append(int(items[3]))
+    return memory, n_exports, n_aggre, n_fr
+
+if __name__ == "__main__":
+    memory, n_exports, n_aggre, n_fr = parse_file("./results.txt")
+    n_pkts = 5000000
+    n_real_fr = 302675
+    aggregates = []
+    flows = []
+    for i in range(len(n_aggre)):
+        aggregates.append(n_aggre[i]/float(n_pkts))
+        flows.append(float(n_real_fr)/n_fr[i])
+
+    plt.figure(1)
+#    plt.xticks(range(10), ("#1", "#2", "#3", "#4", "#5", "#6", "#7", "#8", "#9", "#10"))
+    plt.ylim(0, 0.5)
+    plt.plot(memory, aggregates, marker = "x", markersize=10)
+#    plt.legend(bbox_to_anchor=(0.0, 1.02, 1.0, 0.102), loc = 3, ncol = 2, mode = "expand", borderaxespad = 0.0)
+    plt.xlabel("Memory")
+    plt.ylabel("Aggregation Ratio")
+    plt.savefig("aggregation_ratio.pdf", bbox_inches = "tight")
+    plt.savefig("aggregation_ratio.png", bbox_inches = "tight")
+
+    plt.figure(2)
+    plt.ylim(0, 1.0)
+    plt.plot(memory, flows, marker='x', markersize=10)
+    plt.xlabel("Memory")
+    plt.ylabel("Accuracy")
+    plt.savefig("accuracy.pdf", bbox_inches = "tight")
+    plt.savefig("accuracy.png", bbox_inches = "tight")
